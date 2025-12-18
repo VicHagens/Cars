@@ -18,6 +18,7 @@ struct HomeView: View {
             GridItem(.flexible())
         ]
     
+    // in contentview tabview maken, navstack in homeview
     var body: some View {
         @Bindable var pathStore = pathStore
         NavigationStack(path: $pathStore.path) {
@@ -41,13 +42,6 @@ struct HomeView: View {
                         CarDetailView(car: selectedCar)
                     }
                 }
-                        
-                    
-                
-                
-                
-                
-                
             }
         }.task {
             await dataManager.loadCars()
