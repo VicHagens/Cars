@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct CarsApp: App {
+    @State var dataManager = DataManager()
+    @State var pathStore = PathStore()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(dataManager).environment(pathStore)
         }
     }
 }
