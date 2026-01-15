@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct SettingsView: View {
-    var sorting = ["price","branch","year"]
-    @State var selectedSorting = "price"
+    @Environment(DataManager.self) private var dataManager
     var body: some View {
+        @Bindable var manager = dataManager
         VStack{
-            Picker("Sortering", selection: $selectedSorting) {
-                ForEach(sorting, id: \.self) { sorting in
-                    Text(sorting)
+            Picker("Sorteer voorkeur", selection: $manager.SortPreference) {
+                ForEach(SortPreference.allCases, id: \.self) { preference in
+                    Text(preference.rawValue).tag(preference)
                 }
             }.pickerStyle(.radioGroup)
-            Text("\(selectedSorting)")
         }
     }
 }

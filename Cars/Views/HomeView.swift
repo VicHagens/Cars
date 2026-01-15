@@ -9,37 +9,39 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(DataManager.self) private var dataManager
-    @Environment(PathStore.self) private var pathStore
+    //@Environment(PathStore.self) private var pathStore
+    @Environment(AppState.self) private var appState
     @State var selectedCar: Car? = nil
     @State var loading = true
-    
-    private let columns = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-    
-    // in contentview tabview maken, navstack in homeview
+    @State private var isFavorite = true;
     var body: some View {
-        @Bindable var pathStore = pathStore
-        NavigationStack(path: $pathStore.path) {
+        //@Bindable var pathStore = pathStore
+        @Bindable var state = appState
+        NavigationStack() {
+
             if loading {
                 ProgressView("Loading...")
             } else {
-                TabView {
-                    Tab("Cars", systemImage: "tray.and.arrow.down.fill"){
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(dataManager.getCars(), id: \.self) { car in
-                                NavigationLink(value: car){
-                                    Text("\(car.brand)")
+                Picker("Selection", selection: $state.selection) {
+                    ForEach(state.sorting, id: \.self) { sorting in
+                        Text(sorting)
+                    }
+                }.pickerStyle(.segmented)
+                VStack {
+                    List(dataManager.getCarsBySorting(sorting: state.selection), id: \.self, selection: $selectedCar) { car in
+                        NavigationLink(destination: CarDetailView(car: selectedCar)) {
+                            VStack(alignment: .leading) {
+                                Text(car.brand + " " + car.model)
+                                Text(car.color)
+                                Button("Make Favorite"){
+                                    if appState.favorites.contains(car.id) {
+                                        appState.favorites.removeAll(where: {$0 == car.id})
+                                    } else {
+                                        appState.favorites.append(car.id)
+                                    }
                                 }
                             }
-                            
-                        }.navigationDestination(for: Car.self) { car in
-                            CarDetailView(car: car)
                         }
-                    }
-                    Tab(selectedCar?.brand ?? "no Car selected", systemImage: "tray.and.arrow.down.fill"){
-                        CarDetailView(car: selectedCar)
                     }
                 }
             }

@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    @Environment(AppState.self) private var appState
+    @Environment(DataManager.self) private var dataManager
     var body: some View {
+        @Bindable var state = appState
+        List(dataManager.getCarsById(state.favorites)) { car in
+            VStack(alignment: .leading) {
+                Text(car.brand + " " + car.model)
+                Text(car.color)
+            }
+        }
     }
 }

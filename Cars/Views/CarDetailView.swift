@@ -10,6 +10,18 @@ import SwiftUI
 struct CarDetailView: View {
     let car: Car?
     var body: some View {
-        Text("Hello world")
+        if let car = car {
+            VStack(alignment: .center) {
+                Text(car.brand).font(.largeTitle)
+                Text(car.model).font(.title)
+                Text("$\(car.year)").font(.subheadline)
+                Text("\(Int(car.price))")
+                Text(car.color)
+                Text(car.fuelType)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
+            .navigationTitle("Detail")
+        }
     }
 }

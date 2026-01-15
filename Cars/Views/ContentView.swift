@@ -10,7 +10,17 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            HomeView()
+            TabView {
+                Tab("Home", systemImage: "tray.and.arrow.down.fill"){
+                    HomeView()
+                }
+                Tab("Favorieten", systemImage: "tray.and.arrow.down.fill"){
+                    FavoritesView()
+                }
+                Tab("Instellingen", systemImage: "tray.and.arrow.down.fill"){
+                    SettingsView()
+                }
+            }
         }
     }
 }
