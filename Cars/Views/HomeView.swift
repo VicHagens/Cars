@@ -13,7 +13,6 @@ struct HomeView: View {
     @Environment(AppState.self) private var appState
     @State var selectedCar: Car? = nil
     @State var loading = true
-    @State private var isFavorite = true;
     var body: some View {
         //@Bindable var pathStore = pathStore
         @Bindable var state = appState

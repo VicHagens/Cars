@@ -14,7 +14,7 @@ struct CarsApp: App {
     @State var appState = AppState()
     var body: some Scene {
         WindowGroup {
-            ContentView().environment(dataManager).environment(appState)
+            ContentView().environment(dataManager).environment(appState)//.environment(pathStore)
         }
     }
 }

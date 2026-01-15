@@ -14,8 +14,6 @@ class DataManager {
     var SortPreference: SortPreference = .price
     var cars: [Car] = []
     
-   
-    
     func getCars() -> [Car] {
         return cars
     }

@@ -13,9 +13,11 @@ struct FavoritesView: View {
     var body: some View {
         @Bindable var state = appState
         List(dataManager.getCarsById(state.favorites)) { car in
-            VStack(alignment: .leading) {
-                Text(car.brand + " " + car.model)
-                Text(car.color)
+            NavigationLink(destination: CarDetailView(car: car)) {
+                VStack(alignment: .leading) {
+                    Text(car.brand + " " + car.model)
+                    Text(car.color)
+                }
             }
         }
     }

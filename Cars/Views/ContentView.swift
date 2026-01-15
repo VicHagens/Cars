@@ -15,7 +15,9 @@ struct ContentView: View {
                     HomeView()
                 }
                 Tab("Favorieten", systemImage: "tray.and.arrow.down.fill"){
-                    FavoritesView()
+                    NavigationStack {
+                        FavoritesView()
+                    }
                 }
                 Tab("Instellingen", systemImage: "tray.and.arrow.down.fill"){
                     SettingsView()
